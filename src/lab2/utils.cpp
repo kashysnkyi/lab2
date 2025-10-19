@@ -5,6 +5,8 @@
 #include <random>
 #include <iomanip>
 #include <algorithm>
+#include <numeric>
+#include <execution>
 
 std::vector<int> generate_random_data(size_t size) {
     std::vector<int> data(size);
@@ -19,6 +21,7 @@ std::vector<int> generate_random_data(size_t size) {
 void benchmark_reduce() {
     std::vector<size_t> data_sizes = { 1000, 10000, 100000, 1000000, 10000000 };
     auto max_threads = std::thread::hardware_concurrency();
+    if (max_threads == 0) max_threads = 1;
     std::cout << "Available threads: " << max_threads << "\n\n";
 
     for (auto size : data_sizes) {
